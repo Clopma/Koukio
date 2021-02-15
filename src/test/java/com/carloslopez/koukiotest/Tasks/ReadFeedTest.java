@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(fullyQualifiedNames = "com.carloslopez.koukiotest.Tasks.*")
@@ -61,6 +61,7 @@ public class ReadFeedTest {
         //Expectations
         when(feedInputMock.build(xmlReaderMock)).thenReturn(feedMock);
         when(feedMock.getEntries()).thenReturn(mockedEntries);
+        doNothing().when(postController).updatePosts(anyList());
 
 
     }
