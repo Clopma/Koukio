@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(fullyQualifiedNames = "com.carloslopez.koukiotest.Tasks.*")
+@PrepareForTest(fullyQualifiedNames = "com.carloslopez.koukiotest.tasks.*")
 public class ReadFeedTest {
 
     @InjectMocks
