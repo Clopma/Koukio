@@ -1,4 +1,4 @@
-package com.carloslopez.koukiotest.Entities;
+package com.carloslopez.koukiotest.entities;
 import lombok.*;
 
 import javax.persistence.Column;

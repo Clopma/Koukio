@@ -1,13 +1,11 @@
-package com.carloslopez.koukiotest.Controllers;
+package com.carloslopez.koukiotest.controllers;
 
-import com.carloslopez.koukiotest.Entities.Post;
-import com.carloslopez.koukiotest.Repositories.PostRepository;
+import com.carloslopez.koukiotest.entities.Post;
+import com.carloslopez.koukiotest.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 @Component

@@ -1,12 +1,10 @@
-package com.carloslopez.koukiotest.GraphQL.Resolvers;
+package com.carloslopez.koukiotest.graphql.resolvers;
 
-import com.carloslopez.koukiotest.Controllers.PostController;
-import com.carloslopez.koukiotest.Entities.Post;
+import com.carloslopez.koukiotest.controllers.PostController;
+import com.carloslopez.koukiotest.entities.Post;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.awt.print.Pageable;
 
 @Component
 public class Query implements GraphQLQueryResolver {

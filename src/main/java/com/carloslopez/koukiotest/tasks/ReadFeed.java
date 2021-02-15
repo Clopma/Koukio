@@ -1,8 +1,7 @@
-package com.carloslopez.koukiotest.Tasks;
+package com.carloslopez.koukiotest.tasks;
 
-import com.carloslopez.koukiotest.Controllers.PostController;
-import com.carloslopez.koukiotest.Entities.Post;
-import com.carloslopez.koukiotest.Repositories.PostRepository;
+import com.carloslopez.koukiotest.controllers.PostController;
+import com.carloslopez.koukiotest.entities.Post;
 import com.rometools.rome.feed.synd.SyndEnclosure;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -22,8 +21,8 @@ import java.util.regex.Pattern;
 @Component
 public class ReadFeed {
 
-    private final Pattern pattern = Pattern.compile("/(\\d+)");
-    private final String JORNAL_URL = "http://feeds.nos.nl/nosjournaal?format=xml";
+    private static final Pattern pattern = Pattern.compile("/(\\d+)");
+    private static final String JORNAL_URL = "http://feeds.nos.nl/nosjournaal?format=xml";
 
     @Autowired
     PostController postController;
@@ -38,27 +37,29 @@ public class ReadFeed {
                 SyndFeed feed = new SyndFeedInput().build(reader);
                 //Latest 20 entries
                 List<SyndEntry> entries = feed.getEntries();
-
                 List<Post> posts = new ArrayList<>();
-
-                for (SyndEntry e : entries) {
-                    try {
-                        posts.add(Post.builder()
-                                .id(extractIdFromUri(e.getUri()))
-                                .title(e.getTitle())
-                                .description(e.getDescription().getValue())
-                                .imageUrl(getImageFrom(e))
-                                .publication(e.getPublishedDate()).build());
-                    } catch (NoSuchElementException mappingException) {
-                        logger.error("Couldn't map entry: " + mappingException.getMessage());
-                    }
-                }
+                mapPosts(entries, posts);
                 postController.updatePosts(posts);
                 logger.info("Posts updated.");
             } catch (Exception e){
                 e.printStackTrace();
-                logger.error("Couldn't read from feed: " + e.getMessage());
+                logger.error(String.format("Couldn't read from feed: %s", e.getMessage()));
             }
+    }
+
+    private void mapPosts(List<SyndEntry> entries, List<Post> posts) {
+        for (SyndEntry e : entries) {
+            try {
+                posts.add(Post.builder()
+                        .id(extractIdFromUri(e.getUri()))
+                        .title(e.getTitle())
+                        .description(e.getDescription().getValue())
+                        .imageUrl(getImageFrom(e))
+                        .publication(e.getPublishedDate()).build());
+            } catch (NoSuchElementException mappingException) {
+                logger.error(String.format("Couldn't map entry: %s", mappingException.getMessage()));
+            }
+        }
     }
 
     private String getImageFrom(SyndEntry entry) {

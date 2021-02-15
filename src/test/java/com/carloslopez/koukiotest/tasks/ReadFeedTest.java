@@ -1,7 +1,7 @@
-package com.carloslopez.koukiotest.Tasks;
+package com.carloslopez.koukiotest.tasks;
 
-import com.carloslopez.koukiotest.Controllers.PostController;
-import com.carloslopez.koukiotest.Entities.Post;
+import com.carloslopez.koukiotest.controllers.PostController;
+import com.carloslopez.koukiotest.entities.Post;
 import com.rometools.rome.feed.synd.*;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
