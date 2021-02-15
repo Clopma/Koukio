@@ -1,6 +1,6 @@
 # Koukio & CS Digital Media Test
 
-Spring Boot application which reads the last 20 entries of an RSS feed every 5 minutes and saves them in its in-memory h2 database.
+Spring Boot application which reads the last 20 entries of an RSS feed every 5 minutes and saves them in its in-memory h2 database, which can be accessed from [here](http://localhost:8080/h2-console/login.jsp).
 
 The posts are identified by a number extracted from the post uri. If a post it is already in the database, it gets updated.
 
