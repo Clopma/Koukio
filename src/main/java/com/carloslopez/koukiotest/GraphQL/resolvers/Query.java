@@ -15,5 +15,4 @@ public class Query implements GraphQLQueryResolver {
     public Iterable<Post> getLastPosts(int page, int size) {
         return postController.getLastPosts(page, size);
     }
-
 }
