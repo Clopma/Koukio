@@ -2,6 +2,8 @@
 
 Spring Boot application which reads the last 20 entries of an RSS feed every 5 minutes and saves them in its in-memory h2 database.
 
+The posts are identified by a number extracted from the post uri. If a post it is already in the database, it gets updated.
+
 This records are exposed by a GraphQL interface and can be accessed with pagination through GraphiQL at [localhost](http://localhost:8080/graphiql).
 
 Setup:
