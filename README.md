@@ -24,3 +24,5 @@ You can choose which parameters to show in the json response between the followi
 
 
 The query has two parameters which set the page and the page size.
+
+Unit tests are available at com.carloslopez.koukiotest.tasks.ReadFeedTest.
