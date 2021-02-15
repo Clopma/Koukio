@@ -16,7 +16,7 @@ You can choose which parameters to show in the json response between the followi
         title
         publication
         description
-    	imageUrl
+        imageUrl
       }
     }
 
