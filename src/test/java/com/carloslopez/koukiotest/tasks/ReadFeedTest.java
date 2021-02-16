@@ -70,7 +70,7 @@ public class ReadFeedTest {
     public void entriesAreMappedTest() {
 
         //Execution
-        readFeed.readFeed();
+        readFeed.readFeedAndUpdatePosts();
 
         //Validations
         assertEquals(5, posts.size());
@@ -101,7 +101,7 @@ public class ReadFeedTest {
     public void continuesExecutionAfterNotBeingAbleToParseID() {
 
         mockedEntries.get(0).setUri("http://this.doesnt.have/anyID/");
-        readFeed.readFeed();
+        readFeed.readFeedAndUpdatePosts();
         assertEquals(4, posts.size());
 
     }
@@ -109,7 +109,7 @@ public class ReadFeedTest {
     private List<SyndEntry> defaultMockedEntries() {
 
         return Arrays.asList(
-                buildMockedEntry("http://anything.that.may/haveAnID/111", "Wekdienst 14/2: Waarschijnlijk laatste schaatsdag • Verkiezingen Catalonië", "<p>In Egypte zijn de restanten van een 5000 jaar oude bierbrouwerij ontdekt. Volgens Egyptische en Amerikaanse onderzoekers is het complex in Abydos mogelijk de oudste grootschalige brouwerij ter wereld.</p>", "https://cdn.nos.nl/image/2021/02/14/715299/1008x567.jpg\t", new Date()),
+                buildMockedEntry("http://anything.that.may/haveAnID/111", "Wekdienst 14/2: Waarschijnlijk laatste schaatsdag • Verkiezingen Catalonië", "<p>In Egypte zijn de restanten van een 5000 jaar oude bierbrouwerij ontdekt. Volgens Egyptische en Amerikaanse onderzoekers is het complex in Abydos mogelijk de oudste grootschalige brouwerij ter wereld.</p>", "https://cdn.nos.nl/image/2021/02/14/715299/1008x567.jpg", new Date()),
                 buildMockedEntry("http://without.subdomain/222", "Na 5 jaar weer ebola in Guinee", "Some html: <img src=\"http://feeds.feedburner.com/~r/nosjournaal/~4/KiGHfFY_pQs\" height=\"1\" width=\"1\" alt=\"\"/>", "https://cdn.nos.nl/image/2021/02/14/715299/1008x567.jpg\t", DateUtils.addDays(new Date(), 1)),
                 buildMockedEntry("justDomain.com/333", "Mogelijk oudste bierbrouwerij ter wereld ontdekt in Egypte", "<p>De luchtvaartpolitie doet onderzoek naar de oorzaak van het ongeval, meldt de politie Groningen op Twitter.</p>", "https://cdn.nos.nl/image/2021/02/14/715299/1008x567.jpg\t", DateUtils.addDays(new Date(), -100)),
                 buildMockedEntry("http://www.withAFinalBar.es/444/", "Stemhulpen weer online: 'Ze zetten vooral aan tot nadenken'", "Voor het eerst in vijf jaar zijn er weer gevallen van ebola opgedoken in het West-Afrikaanse Guinee.", "https://cdn.nos.nl/image/2021/02/14/715299/1008x567.jpg\t", DateUtils.addYears(new Date(), -500)),
