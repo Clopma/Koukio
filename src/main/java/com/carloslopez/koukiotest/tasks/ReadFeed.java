@@ -30,24 +30,26 @@ public class ReadFeed {
     Logger logger = LoggerFactory.getLogger(ReadFeed.class);
 
     @Scheduled(fixedRate = 300000)
-    public void readFeed() {
-
-            logger.info("Starting to read the feed.");
-            try (XmlReader reader = new XmlReader(new URL(JORNAL_URL))) {
-                SyndFeed feed = new SyndFeedInput().build(reader);
-                //Latest 20 entries
-                List<SyndEntry> entries = feed.getEntries();
-                List<Post> posts = new ArrayList<>();
-                mapPosts(entries, posts);
-                postController.updatePosts(posts);
-                logger.info("Posts updated.");
-            } catch (Exception e){
-                e.printStackTrace();
-                logger.error(String.format("Couldn't read from feed: %s", e.getMessage()));
-            }
+    public void readFeedAndUpdatePosts() {
+        List<SyndEntry> entries = getLatest20Entries();
+        List<Post> posts = mapPosts(entries);
+        postController.updatePosts(posts);
+        logger.info("Finished reading RSS feed.");
     }
 
-    private void mapPosts(List<SyndEntry> entries, List<Post> posts) {
+    public List<SyndEntry> getLatest20Entries() {
+        logger.info("Starting to read the feed.");
+        try (XmlReader reader = new XmlReader(new URL(JORNAL_URL))) {
+            SyndFeed feed = new SyndFeedInput().build(reader);
+            return feed.getEntries();
+        } catch (Exception e) {
+            logger.error(String.format("Couldn't read from feed: %s", e.getMessage()));
+            return Collections.emptyList();
+        }
+    }
+
+    private List<Post> mapPosts(List<SyndEntry> entries) {
+        List<Post> posts = new ArrayList<>();
         for (SyndEntry e : entries) {
             try {
                 posts.add(Post.builder()
@@ -60,6 +62,7 @@ public class ReadFeed {
                 logger.error(String.format("Couldn't map entry: %s", mappingException.getMessage()));
             }
         }
+        return posts;
     }
 
     private String getImageFrom(SyndEntry entry) {
