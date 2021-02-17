@@ -1,7 +1,7 @@
 package com.carloslopez.koukiotest.graphql.resolvers;
 
-import com.carloslopez.koukiotest.controllers.PostController;
 import com.carloslopez.koukiotest.entities.Post;
+import com.carloslopez.koukiotest.services.PostService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 public class Query implements GraphQLQueryResolver {
 
     @Autowired
-    private PostController postController;
+    private PostService postService;
 
     public Iterable<Post> getLastPosts(int page, int size) {
-        return postController.getLastPosts(page, size);
+        return postService.getLastPosts(page, size);
     }
 }
